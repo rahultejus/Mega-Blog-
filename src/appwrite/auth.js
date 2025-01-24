@@ -1,5 +1,4 @@
-import { use } from "react";
-import conf from "../conf.js";
+import conf from "../conf/conf.js";
 import { Client, Account, ID } from "appwrite";
 
 export class AuthService{
