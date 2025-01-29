@@ -67,7 +67,7 @@ export class Service{
     }
   }
    
-  async getPost(){
+  async getPost(slug){
     try {
          return await this.databases.getDocument(
             conf.appwriteDatabaseId,
@@ -76,7 +76,7 @@ export class Service{
          )
     } catch (error) {
         console.log("Appwrite service :: getPost:: error",error)
-        return false
+        return null;
     }
   }
 
@@ -89,7 +89,7 @@ export class Service{
         )
     } catch (error) {
         console.log("Appwrite service :: getPosts:: error",error)
-        return false
+        return null
     }
   }
   //file upload services

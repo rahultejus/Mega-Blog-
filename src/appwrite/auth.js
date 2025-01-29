@@ -13,14 +13,25 @@ export class AuthService{
 
     async createAccount({email,password,name}){
         try {
+              console.log("Creating account with:", { email, password, name });
              const userAccount=await this.account.create(ID.unique(),email,password,name);
+             console.log("Account created:", userAccount);
              if (userAccount) {
                // call another method
-                this.login({email,password})
+               await this.login({email,password})
+            //    return await this.getCurrentUser()
+            const currentUser = await this.getCurrentUser();
+            console.log("Fetched current user after signup:", currentUser);
+            return currentUser;
+               
+
              } else {
-                return userAccount
+                // return userAccount
+                console.error("Account creation failed.");
+               return null;
              }
         } catch (error) {
+            console.error("Error during account creation:", error);
             throw error;
         }
     }
@@ -29,6 +40,7 @@ export class AuthService{
             return await this.account.createEmailPasswordSession(email,password)
 
         } catch (error) {
+            console.log("error is:",error)
             throw error;
         }
     }
@@ -38,6 +50,8 @@ export class AuthService{
            return await this.account.get()
         } catch (error) {
             console.log("Appwrite service :: getCurrentUser :: error",error)
+            // throw error
+            return null
         }
         return null
     }
@@ -45,11 +59,13 @@ export class AuthService{
     async logout(){
         try {
             await this.account.deleteSessions()
+            return true;
         } catch (error) {
-            console.log("Appwrite service :: getCurrentUser :: error",error)
+            console.log("Appwrite service :: logout :: error",error)
         }
     }
 }
 
 const authService=new AuthService();
+
 export default authService
