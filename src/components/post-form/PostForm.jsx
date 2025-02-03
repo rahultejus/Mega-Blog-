@@ -1,37 +1,52 @@
-import React, { useCallback, useEffect } from "react";
+import  { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Select, RTE } from "../index";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { use } from "react";
 
-function PostForm() {
+
+function PostForm({post}) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || "",
         slug: post?.slug || "",
         content: post?.content || "",
+        featuredImg: post?.featuredImg || "",
         status: post?.status || "active",
         tags: [],
         cover: "",
       },
     });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
+
+ 
 
   const submit = async (data) => {
+    console.log(data)
+    try {
+      if (!userData || !userData.$id) {
+        throw new Error("User authentication required");
+      }
+  
+      // what's being submitted
+      console.log("Submission data:", { 
+        ...data, 
+        userId: userData.$id 
+      });
+
     if (post) {
       const file = data.image[0]
-        ? appwriteService.uploadFile(data.image[0])
+        ?await appwriteService.uploadFile(data.image[0])
         : null;
       if (file) {
-        appwriteService.deleteFile(post.featuredImage);
+        appwriteService.deleteFile(post.featuredImg);
       }
       const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
-        featuredImage: file ? file.$id : undefined,
+        featuredImg: file ? file.$id : undefined,
       });
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
@@ -40,7 +55,7 @@ function PostForm() {
       const file = await appwriteService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
-        data.featuredImage = fileId;
+        data.featuredImg = fileId;
         const dbPost = await appwriteService.createPost({
           ...data,
           userId: userData.$id,
@@ -50,6 +65,9 @@ function PostForm() {
         }
       }
     }
+  }catch(error) {
+    console.error("Submission failed:", error);
+  }
   };
 
   
@@ -58,8 +76,8 @@ function PostForm() {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "");
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9-]/g, "");
     return "";
   }, []);
 
@@ -100,8 +118,9 @@ function PostForm() {
         <RTE
           label="Content :"
           name="content"
-          control={control}
-          defaultValue={getValues("content")}
+          control={control} 
+          defaultValue={getValues("content")|| ""}
+          // readOnly={false}
         />
       </div>
       <div className="w-1/3 px-2">
@@ -115,7 +134,7 @@ function PostForm() {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={appwriteService.getFilePreview(post.featuredImg)}
               alt={post.title}
               className="rounded-lg"
             />

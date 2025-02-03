@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Button({
     children,
     type='button',
@@ -14,5 +12,6 @@ function Button({
     </button>
   )
 }
+
 
 export default Button

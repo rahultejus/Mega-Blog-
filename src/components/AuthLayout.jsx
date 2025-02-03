@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import {useEffect,useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
@@ -10,7 +10,6 @@ export default function AuthLayout({children,authentication=true}) {
 
     useEffect(()=>{
         //TODO:make it more easy to understand
-
         let authValue=authStatus===true ? 'true' : 'false'
        if(authentication && authStatus !==authentication){
            navigate("/login")

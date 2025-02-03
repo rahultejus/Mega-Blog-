@@ -60,6 +60,8 @@ function Signup() {
           </Link>
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{typeof error === "string" ? error : JSON.stringify(error)}</p>}
+
+        
         <form onSubmit={handleSubmit(create)}>
           <div className="space-y-5">
             <Input

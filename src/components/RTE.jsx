@@ -11,6 +11,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
        control={control}
        render={({field:{onChange}})=>(
         <Editor
+        apiKey="cta9ludii8f2yppn7npmaq34lwxbj9onzrpbi1l7ocwh5td0"
         initialValue={defaultValue}
         init={{
         branding: false,
@@ -40,7 +41,8 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
         ],
         toolbar:
         "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify |bullist numlist outdent indent |removeformat | help",
-         content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+         content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+         readonly:false
       }}
       onEditorChange={onChange}
          />

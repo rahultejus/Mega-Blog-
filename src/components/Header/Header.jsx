@@ -1,4 +1,3 @@
-import React from "react";
 import { Logo, Container, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -33,14 +32,15 @@ function Header() {
       slug: "/add-post",
       active: authStatus,
     },
+    
   ];
   return (
-    <header className="py-3 shadow bg-gray-300">
+    <header className="py-3 shadow bg-white w-full">
       <Container>
         <nav className="flex">
           <div className="mr-4">
-            <Link to="/">
-              <Logo width="70px" />
+            <Link to="./rk">
+              <Logo width="50px" />
             </Link>
           </div>
           <ul className="flex ml-auto gap-4">
