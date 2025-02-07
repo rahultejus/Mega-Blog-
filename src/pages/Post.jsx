@@ -36,17 +36,18 @@ export  function Post() {
   return post ? (
     <div className="py-8">
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+        <div className="w-full max-w-2xl mx-auto mb-8 relative bg-gray-100 p-2 rounded-xl">
           <img
-            src={appwriteService.getFilePreview(post.featuredImg)}
+            src={appwriteService.getFilePreview(post.featuredImg,800,450)}
             alt={post.title}
-            className="rounded-xl"
+            className="w-full h-auto object-contain rounded-lg"
+            style={{ maxHeight: '450px' }}
           />
 
           {isAuthor && (
-            <div className="absolute right-6 top-6">
+            <div className="absolute right-6 top-6 flex gap-3">
               <Link to={`/edit-post/${post.$id}`}>
-                <Button bgColor="bg-green-500" className="mr-3" >
+                <Button bgColor="bg-green-500" className="mr-3 hover:bg-green-600" >
                   Edit
                 </Button>
               </Link>
@@ -56,10 +57,13 @@ export  function Post() {
             </div>
           )}
         </div>
-        <div className="w-full mb-6">
-          <h1 className="text-2xl font-bold">{post.title}</h1>
+
+      {/* content container */}
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-2xl md:text-3xl font-bold mb-6">{post.title}</h1>
+        <div className="prose max-w-none browser-css">{parse(post.content)}
         </div>
-        <div className="browser-css">{parse(post.content)}</div>
+        </div>
       </Container>
     </div>
   ) : null;

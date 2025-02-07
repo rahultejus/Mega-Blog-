@@ -5,13 +5,13 @@ import Logo_ftr from "../Logo_ftr";
 function Footer() {
   return (
     <footer className="bg-[#0B1C3F]  text-gray-300 py-12 w-full">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="w-full px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {/* Logo & Copyright */}
           <div>
             <Logo_ftr width="100px" />
             <p className="mt-4 text-sm">&copy; 2025 Rahultejus. All Rights Reserved.</p>
-            <div className="flex gap-4 mt-6 ml-12">
+            <div className="flex gap-4 mt-6 mx-auto">
               <Link to='/' className="text-gray-400 hover:text-white transition"> 
                   <FaFacebookF size={20} />
               </Link>
@@ -83,7 +83,7 @@ function Footer() {
         </div>
 
         {/* Bottom Line */}
-        <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm">
+        <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm max-w-7xl mx-auto">
           Made with ❤️ by Rahultejus
         </div>
       </div>
