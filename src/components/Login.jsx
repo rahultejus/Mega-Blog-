@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login as authLogin } from "../store/authSlice";
 import { Button, Input, Logo } from "./index";
@@ -61,8 +61,7 @@ function Login() {
         <form onSubmit={handleSubmit(login)} className="mt-8">
           <div className="space-y-5">
             <Input
-              label="Email"
-              
+              label="Email" 
               placeholder="Enter your email address"
               type="email"
               {...register("email", {
@@ -85,7 +84,7 @@ function Login() {
             })}
           />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full mt-5">
             Sign In
           </Button>
         </form>
